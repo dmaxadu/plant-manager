@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
-import { Welcome } from "./src/pages/welcome";
+import { UserIdentification } from "./src/pages/UserIdentification";
 import AppLoading from "expo-app-loading";
 import { 
   useFonts, 
@@ -21,9 +21,9 @@ export default function App(){
       );
 
     return(
-      <Welcome />
+      <UserIdentification />
     );
 }
 
-//minutagem 27:36
+//minutagem 50:07
 

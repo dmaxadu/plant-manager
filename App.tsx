@@ -25,5 +25,5 @@ export default function App(){
     );
 }
 
-//minutagem 50:07
+//minutagem 01:05:19
 

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     SafeAreaView,
     View,
     Text,
     TextInput,
+    KeyboardAvoidingView,
+    Platform,
+    
 } from 'react-native';
 
 import colors from '../styles/colors';
@@ -12,23 +15,60 @@ import fonts from '../styles/fonts';
 import { StandardButton } from '../components/StandardButton';
 
 export function UserIdentification (){
+
+    const [isFocused, setIsFocused] = useState(false);
+    const [isFilled, setIsFilled] = useState(false);
+    const [name, setName] = useState<string>();
+
+    function handleInputBlur(){
+        setIsFocused(false);
+        setIsFilled(!!name);
+    }
+
+    function handleInputFocus(){
+        setIsFocused(true);
+    }
+
+    function handleInputChange(value: string){
+        setIsFilled(!!value);
+        setName(value);
+    }
+
     return (
         <SafeAreaView style={ style.container }>
-            <View style={ style.wrapper }>
-                <View style={ style.form }>
-                    <Text style={ style.emoji }>
-                        😄
-                    </Text>
-                    <Text style={ style.title }>
-                        Como podemos {'\n'}
-                        chamar você?
-                    </Text>
-                    <TextInput style={ style.input }>
+            <KeyboardAvoidingView 
+                style={ style.container } 
+                behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }>
 
-                    </TextInput>
-                    <StandardButton/>
+                <View style={ style.wrapper }>
+
+                    <View style={ style.form }>
+
+                        <View style={ style.header }>
+                            <Text style={ style.emoji }>
+                                { isFilled ? '😄' : '🤔' }
+                            </Text>
+                            <Text style={ style.title }>
+                                Como podemos {'\n'}
+                                chamar você?
+                            </Text>
+                        </View>
+
+                        <TextInput 
+                            style={ [style.input, (isFocused || isFilled) && { borderColor: colors.green }] } 
+                            placeholder="Digite o seu nome"
+                            onBlur={ handleInputBlur }
+                            onFocus={  handleInputFocus }
+                            onChangeText={  handleInputChange }>
+
+                        </TextInput>
+
+                        <View style={ style.footer }>
+                            <StandardButton/>
+                        </View>
+                    </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }
@@ -77,4 +117,14 @@ const style = StyleSheet.create({
         padding: 10,
         textAlign: 'center',
     },
+
+    footer: {
+        marginTop: 40,
+        width: '100%',
+        paddingHorizontal: 20,
+    },
+
+    header: {
+        alignItems: 'center',
+    }
 })

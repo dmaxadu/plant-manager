@@ -8,6 +8,8 @@ import {
   Jost_600SemiBold 
 } from '@expo-google-fonts/jost';
 
+import Routes from "./src/routes";
+
 export default function App(){
 
   let [ fontsLoaded ] = useFonts({
@@ -21,9 +23,9 @@ export default function App(){
       );
 
     return(
-      <UserIdentification />
+      <Routes/>
     );
 }
 
-//minutagem 01:05:19
+//minutagem 04:34
 
